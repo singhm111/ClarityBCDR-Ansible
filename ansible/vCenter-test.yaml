@@ -1,0 +1,35 @@
+---
+- name: Test VMware connection
+  hosts: localhost
+  gather_facts: false
+  
+  vars_files:
+  - group_vars/vars.yaml
+  - group_vars/vault.yaml
+
+  tasks:
+    - name: Get VMware VM information
+      community.vmware.vmware_vm_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        port: "{{ vcenter_port }}"
+        validate_certs: false
+      register: vmware_test
+
+    - name: Show VMware result
+      ansible.builtin.debug:
+        var: vmware_test
+
+    - name: Get vCenter information
+      community.vmware.vmware_about_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        port: "{{ vcenter_port }}"
+        validate_certs: false
+      register: vcenter_info
+
+    - name: Display vCenter information
+      ansible.builtin.debug:
+        var: vcenter_info
