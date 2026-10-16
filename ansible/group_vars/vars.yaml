@@ -1,1 +1,3 @@
-
+---
+vcenter_hostname: ngbw1apvc6001.iaas.bbc.co.uk
+vcenter_port: 443
